@@ -11,7 +11,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use('/api',require('./routes/text'))
+app.use('/api',require('./routes/Symptoms'));
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
