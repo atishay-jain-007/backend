@@ -143,8 +143,8 @@ router.post("/", async (req, res) => {
     if (!req.body.Symptoms) {
         return res.status(400).json({ error: "Symptoms are required" });
     }
-
     const Symptoms = req.body.Symptoms;
+    console.log(Symptoms)
     const itemKeys = Object.keys(items);
     let arr = new Array(itemKeys.length).fill(0);
 
@@ -166,7 +166,39 @@ router.post("/", async (req, res) => {
         }
     );
     const result = await mlres.json();
-    res.json({ message: "Symptoms received successfully", Diseases: result });
-});
+    const diseaseCount = {};
+    Object.values(result).forEach(predictions => {
+        predictions.forEach(disease => {
+            if (!diseaseCount[disease]) {
+                diseaseCount[disease] = 0;
+            }
+            diseaseCount[disease]++;
+        });
+    });
+
+    console.log("Disease Count:", diseaseCount);
+
+    
+    let maxCount = 0;
+    let mostCommonDiseases = [];
+
+    for (const [disease, count] of Object.entries(diseaseCount)) {
+        if (count > maxCount) {
+            maxCount = count;
+            mostCommonDiseases = [disease];
+        } else if (count === maxCount) {
+            mostCommonDiseases.push(disease);
+        }
+    }
+
+    console.log("Most Common Diseases:", mostCommonDiseases);
+
+  
+   
+
+   
+    res.json({ message: "Symptoms received successfully", Disease: mostCommonDiseases });
+    });
+   
 
 module.exports = router;
