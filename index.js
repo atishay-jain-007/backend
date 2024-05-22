@@ -9,9 +9,13 @@ const corsOptions = {
   optionsSuccessStatus: 204,
 };
 
+const connecttomongo=require('./db')
+connecttomongo();
 app.use(cors(corsOptions));
 app.use(express.json());
+
 app.use('/api',require('./routes/Symptoms'));
+app.use('/login',require('./routes/GoogleLogin'));
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
