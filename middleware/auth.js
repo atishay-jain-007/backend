@@ -7,9 +7,9 @@ const verifyToken = (req, res, next) => {
     if (!token) {
         return res.status(403).json({ error: 'Token not provided' });
     }
-
+console.log(token)
     // Verify token
-    jwt.verify(token, 'your_secret_key_here', (err, decoded) => {
+    jwt.verify(token, 'jsooon', (err, decoded) => {
         if (err) {
             console.error('Error verifying token:', err);
             return res.status(401).json({ error: 'Failed to authenticate token' });

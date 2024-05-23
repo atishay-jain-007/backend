@@ -18,24 +18,24 @@ router.post("/", async (req, res) => {
         });
         const payload = ticket.getPayload();
 
-        // Check if the user already exists in your database
+        
         const userExists = await User.findOne({ email: payload.email });
 
         if (!userExists) {
-            // User doesn't exist, store their information in the database
+          
             const newUser = new User({
                 name: payload.name,
                 email: payload.email,
-                // Add other relevant user information here
+               
             });
             await newUser.save();
         }
 
-        // Generate JWT for further authentication
-        const authToken = jwt.sign(payload, 'your_secret_key_here');
+      
+        const authToken = jwt.sign(payload, 'jsooon');
 
         console.log(payload);
-        res.json({ authToken }); // Send JWT to client
+        res.json({ authToken }); 
     } catch (error) {
         console.error('Error verifying token:', error);
         res.status(400).json({ error: 'Invalid token' });

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bodyParser = require('body-parser');
-
+const verify = require('../middleware/auth.js')
 const items = {
     "itching": true,
     "skin rash": true,
@@ -139,7 +139,7 @@ const items = {
 
 router.use(bodyParser.json());
 
-router.post("/", async (req, res) => {
+router.post("/",verify, async (req, res) => {
     if (!req.body.Symptoms) {
         return res.status(400).json({ error: "Symptoms are required" });
     }
