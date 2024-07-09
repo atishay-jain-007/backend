@@ -145,8 +145,8 @@ router.post("/getdesc",verify, async (req, res) => {
   try {
     // console.log(disease);
     const data = await Disease.findOne({ disease: disease });
-
-    // console.log(diseases.description);
+    console.log(data)
+    console.log(data.cure);
     res.json({success:true,description:data.description,cure:data.cure})
   } catch (error) {
     console.error("Error fetching diseases:", error);

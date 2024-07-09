@@ -7,7 +7,7 @@ const verifyToken = (req, res, next) => {
     if (!token) {
         return res.status(403).json({ error: 'Token not provided' });
     }
-console.log(token)
+// console.log(token)
 
     jwt.verify(token, 'jsooon', (err, decoded) => {
         if (err) {
